@@ -2,7 +2,7 @@ import path from "path";
 import { nanoid } from "nanoid";
 import fs from "fs/promises";
 
-const contactsPath = path.join(__dirname, "db", "contacts.json");
+const contactsPath = path.resolve("db", "contacts.json");
 
 const listContacts = async () => {
   const data = await fs.readFile(contactsPath);
@@ -35,7 +35,7 @@ const removeContact = async (contactId) => {
   return updatedContacts.length !== contacts.length;
 };
 
-module.exports = {
+export default {
   contactsPath,
   listContacts,
   getByIdContact,
