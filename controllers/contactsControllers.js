@@ -1,9 +1,9 @@
 import HttpError from "../helpers/HttpError.js";
-import contactsService from "../services/contactsServices.js";
+import { Contact } from "../models/Contact.js";
 
 export const getAllContacts = async (req, res, next) => {
   try {
-    const result = await contactsService.listContacts();
+    const result = await Contact.find({});
     res.json(result);
   } catch (error) {
     next(error);
@@ -13,7 +13,7 @@ export const getAllContacts = async (req, res, next) => {
 export const getOneContact = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await contactsService.getByIdContact(id);
+    const result = await Contact.findOne({ _id: id });
     if (!result) {
       throw HttpError(404);
     }
@@ -25,7 +25,7 @@ export const getOneContact = async (req, res, next) => {
 
 export const createContact = async (req, res, next) => {
   try {
-    const result = await contactsService.addContact(req.body);
+    const result = await Contact.create(req.body);
     res.status(201).json(result);
   } catch (error) {
     next(error);
@@ -35,7 +35,20 @@ export const createContact = async (req, res, next) => {
 export const updateContact = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await contactsService.updateById(id, req.body);
+    const result = await Contact.findByIdAndUpdate(id, req.body);
+    if (!result) {
+      throw HttpError(404);
+    }
+    res.json(result);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateFavorite = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const result = await Contact.findByIdAndUpdate(id, req.body);
     if (!result) {
       throw HttpError(404);
     }
@@ -48,7 +61,7 @@ export const updateContact = async (req, res, next) => {
 export const deleteContact = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const result = await contactsService.removeContact(id);
+    const result = await Contact.findByIdAndDelete(id);
     if (!result) {
       throw HttpError(404);
     }
@@ -56,12 +69,4 @@ export const deleteContact = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-export default {
-  getAllContacts,
-  getOneContact,
-  createContact,
-  updateContact,
-  deleteContact,
 };
