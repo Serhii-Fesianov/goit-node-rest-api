@@ -8,7 +8,7 @@ import authRouter from "./routes/authRouter.js";
 
 dotenv.config();
 
-const { DB_HOST, PORT = 3000 } = process.env;
+const { DB_HOST, PORT } = process.env;
 
 const app = express();
 
@@ -27,12 +27,11 @@ app.use((err, req, res, next) => {
   const { status = 500, message = "Server error" } = err;
   res.status(status).json({ message });
 });
-
 mongoose
   .connect(DB_HOST)
   .then(() => {
     app.listen(PORT, () => {
-      console.log("Database connection successful");
+      console.log(`Database connection successful ${PORT}`);
     });
   })
   .catch((error) => {
