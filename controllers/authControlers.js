@@ -29,7 +29,7 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, subscription } = req.body;
     const user = await findUser({ email: email });
     if (!user) {
       throw HttpError(401, "Email or password wrong");
@@ -54,6 +54,29 @@ export const signin = async (req, res, next) => {
 
     res.json({
       token: token,
+      user: email,
+      subscription: subscription,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCurrentUser = async (req, res, next) => {
+  try {
+    const { email, subscription } = req.user;
+    res.json({ email, subscription });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const signout = async (req, res, next) => {
+  try {
+    const { _id } = req.user;
+    await updateUser({ _id }, { token: "" });
+    res.json({
+      message: "Signout success",
     });
   } catch (error) {
     next(error);
