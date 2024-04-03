@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="contact-add-form" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="contact-name" required />
+      <input type="email" name="email" placeholder="contact-email" required />
+      <input type="file" name="cover" required multiple />
+      <button>Add information</button>
+    </form>
+    <script>
+      "use";
+      const contactAdd = document.getElementById("contact-add-form");
+      contactAdd.addEventListener("submit", function (e) {
+        e.preventDefault();
+        console.log(this.elements.cover.files);
+        const { name, email, cover } = this.elements;
+        const data = new FormData();
+        data.append("name", name.value);
+        data.append("email", email.value);
+        data.append("cover", cover.files);
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>
