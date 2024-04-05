@@ -17,6 +17,6 @@ avatarRoter.post(
   avatarControler
 );
 
-avatarRoter.get("/upload", authentication, getAvatarControler);
+avatarRoter.get("/getavatar", authentication, getAvatarControler);
 
 export default avatarRoter;

@@ -6,16 +6,22 @@ import contactsRouter from "./routes/contactsRouter.js";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRouter.js";
 import avatarRoter from "./routes/avatarRoutes.js";
+// import { fileURLToPath } from "url";
+// import { dirname, join } from "path";
 
 dotenv.config();
 
 const { DB_HOST, PORT } = process.env;
 
 const app = express();
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = dirname(__filename);
 
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+// app.use("/avatars", express.static(join(__dirname, "public/avatars")));
+app.use(express.static("public"));
 
 app.use("/api/contacts", contactsRouter);
 app.use("/api/users", authRouter);

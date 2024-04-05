@@ -10,5 +10,4 @@ export const userSignUpSchema = Joi.object({
 export const userSignInSchema = Joi.object({
   email: Joi.string().pattern(emailRegex).required(),
   password: Joi.string().required(),
-  subscription: Joi.string().required(),
 });

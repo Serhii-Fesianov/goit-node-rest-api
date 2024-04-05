@@ -6,6 +6,7 @@ import {
 } from "../auth-services/auth-services.js";
 import HttpError from "../helpers/HttpError.js";
 import jwt from "jsonwebtoken";
+import gravatar from "gravatar";
 
 export const signup = async (req, res, next) => {
   try {
@@ -15,8 +16,8 @@ export const signup = async (req, res, next) => {
     if (user) {
       throw HttpError(409, "Email in use");
     }
-
-    const newUser = await createUser(req.body);
+    const avatarUrl = gravatar.url(email);
+    const newUser = await createUser({ ...req.body, avatarUrl });
 
     res.status(201).json({
       username: newUser.username,
