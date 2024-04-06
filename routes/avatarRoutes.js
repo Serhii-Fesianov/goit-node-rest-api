@@ -2,6 +2,7 @@ import express from "express";
 import {
   avatarControler,
   getAvatarControler,
+  updateAvatar,
 } from "../controllers/avatarControler.js";
 import { authentication } from "../middlewares/authentication.js";
 import { upload } from "../middlewares/multerMiddleware.js";
@@ -18,5 +19,11 @@ avatarRoter.post(
 );
 
 avatarRoter.get("/getavatar", authentication, getAvatarControler);
+avatarRoter.patch(
+  "/update",
+  authentication,
+  upload.single("avatar"),
+  updateAvatar
+);
 
 export default avatarRoter;
