@@ -7,6 +7,7 @@ import {
 import HttpError from "../helpers/HttpError.js";
 import jwt from "jsonwebtoken";
 import gravatar from "gravatar";
+import { transporter } from "../helpers/mailer.js";
 
 export const signup = async (req, res, next) => {
   try {
@@ -16,6 +17,13 @@ export const signup = async (req, res, next) => {
     if (user) {
       throw HttpError(409, "Email in use");
     }
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: email,
+      subject: "Reset your password code",
+      html: '<h2 style="color:red;font-size:46px;">Text example</h2>',
+    };
+    await transporter.sendMail(mailOptions);
     const avatarUrl = gravatar.url(email);
     const newUser = await createUser({ ...req.body, avatarUrl });
 
@@ -24,6 +32,7 @@ export const signup = async (req, res, next) => {
       email: newUser.email,
     });
   } catch (error) {
+    console.log(error);
     next(error);
   }
 };

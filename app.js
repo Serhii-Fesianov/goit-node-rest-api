@@ -6,6 +6,7 @@ import contactsRouter from "./routes/contactsRouter.js";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRouter.js";
 import avatarRoter from "./routes/avatarRoutes.js";
+
 // import { fileURLToPath } from "url";
 // import { dirname, join } from "path";
 
