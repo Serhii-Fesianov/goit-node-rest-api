@@ -32,32 +32,6 @@ export const createContact = async (req, res, next) => {
   }
 };
 
-export const updateContact = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const result = await Contact.findByIdAndUpdate(id, req.body);
-    if (!result) {
-      throw HttpError(404);
-    }
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const updateFavorite = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const result = await Contact.findByIdAndUpdate(id, req.body);
-    if (!result) {
-      throw HttpError(404);
-    }
-    res.json(result);
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const deleteContact = async (req, res, next) => {
   try {
     const { id } = req.params;
