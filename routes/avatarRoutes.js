@@ -11,15 +11,15 @@ const avatarRouter = express.Router();
 
 // upload.fields([{name: "cover", maxcount: 1}, {name:"subcover", maxcount: 2}])
 // upload.array("cover", 8)
-avatarRoter.post(
+avatarRouter.post(
   "/upload",
   authentication,
   upload.single("cover"),
   avatarControler
 );
 
-avatarRoter.get("/getavatar", authentication, getAvatarControler);
-avatarRoter.patch(
+avatarRouter.get("/getavatar", authentication, getAvatarControler);
+avatarRouter.patch(
   "/update",
   authentication,
   upload.single("avatar"),

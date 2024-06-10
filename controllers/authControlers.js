@@ -94,7 +94,7 @@ export const resendVerifyEmail = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
   try {
-    const { email, password, subscription } = req.body;
+    const { email, password } = req.body;
     const user = await findUser({ email: email });
     if (!user) {
       throw HttpError(401, "Email or password wrong");
@@ -125,7 +125,6 @@ export const signin = async (req, res, next) => {
     res.json({
       token: token,
       user: email,
-      subscription: subscription,
     });
   } catch (error) {
     next(error);
@@ -134,8 +133,8 @@ export const signin = async (req, res, next) => {
 
 export const getCurrentUser = async (req, res, next) => {
   try {
-    const { email, subscription } = req.user;
-    res.json({ email, subscription });
+    const { email } = req.user;
+    res.json({ email });
   } catch (error) {
     next(error);
   }
