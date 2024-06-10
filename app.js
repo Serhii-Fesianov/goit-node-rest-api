@@ -2,10 +2,9 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import mongoose from "mongoose";
-import contactsRouter from "./routes/contactsRouter.js";
 import dotenv from "dotenv";
 import authRouter from "./routes/authRouter.js";
-import avatarRoter from "./routes/avatarRoutes.js";
+import avatarRouter from "./routes/avatarRoutes.js";
 
 // import { fileURLToPath } from "url";
 // import { dirname, join } from "path";
@@ -24,9 +23,8 @@ app.use(express.json());
 // app.use("/avatars", express.static(join(__dirname, "public/avatars")));
 app.use(express.static("public"));
 
-app.use("/api/contacts", contactsRouter);
 app.use("/api/users", authRouter);
-app.use("/api/avatars", avatarRoter);
+app.use("/api/avatars", avatarRouter);
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
