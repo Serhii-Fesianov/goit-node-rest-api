@@ -3,6 +3,10 @@ import { emailRegex } from "../constants/user-constants.js";
 
 const userSchema = new Schema(
   {
+    name: {
+      type: "string",
+      required: [true, "name is required"],
+    },
     password: {
       type: String,
       required: [true, "Password is required"],
