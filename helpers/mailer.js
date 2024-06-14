@@ -3,13 +3,15 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const { EMAIL_PASSWORD } = process.env;
+
 export const transporter = nodemailer.createTransport({
-  service: "gmail",
-  host: "smtp.gmail.com",
-  port: 2525,
+  // service: "meta"?,
+  host: "smtp.meta.ua",
+  port: 465,
   secure: true,
   auth: {
-    user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASSWORD,
+    user: "fesianov_serhii@meta.ua",
+    pass: EMAIL_PASSWORD,
   },
 });

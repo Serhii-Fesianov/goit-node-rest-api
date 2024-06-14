@@ -34,7 +34,7 @@ export const signup = async (req, res, next) => {
       from: process.env.EMAIL,
       to: email,
       subject: "Verify your email",
-      html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationCode}">Verify Link</a>`,
+      html: `<a target="_blank" href="${BASE_URL}/api/users/verify/${verificationCode}">Verify Link for web-aplication Cossacs</a>`,
     };
     await transporter.sendMail(mailOptions);
     console.log(mailOptions);
